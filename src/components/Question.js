@@ -1,13 +1,13 @@
 import { useState } from "react"
 
-export default function Question({ question, answer, open }) {
+export default function Question({ question, answer, open = false }) {
     const [isOpen, setIsOpen] = useState(open)
 
     const handleClick = (e) => setIsOpen(!isOpen)
 
     return (
         <div 
-            className="grid grid-cols-12 gap-2 border-2 border-solid border-black p-4 items-center"
+            className="grid grid-cols-12 gap-2 border-2 border-solid border-black rounded-lg p-4 items-center"
             onClick={handleClick}
         >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 row-start-1" >
