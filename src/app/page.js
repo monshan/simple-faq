@@ -1,28 +1,25 @@
 "use client"
 
-import Question from "@/components/Question"
-import data from "@/data"
-import { useEffect, useState } from "react"
+import { useState } from "react";
+import Question from "@/components/Question";
+import data from "@/data";
 
-export default function Home () {
-  const [questions, setQuestions] = useState([])
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setQuestions(data)
-      setLoading(false);
-    }, 1500);
-  }, [])
+export default function Home() {
+  const [questions, setQuestions] = useState(data);
 
   return (
-    <div className="w-screen h-full">
-      <h1>Frequently Asked Questions</h1>
-      { questions.length ? 
-        questions.map(({ question, answer}) => <Question key={`ques_${question.substring(0, 10)}`} answer={answer} />) :
-        <p>No questions</p> 
-      }
+    <div className="w-screen h-screen">
+      <h1 className="">Frequently Asked Questions</h1>
+      <div className="grid gap-4">
+        {questions.length ? (
+          questions.map((props, i) => (
+            <Question key={`${props.question.substring(0, 20)}`} {...props} />
+          ))
+        ) : (
+          <p>No questions</p>
+        )}
+      </div>
     </div>
-  )
+  );
 }
