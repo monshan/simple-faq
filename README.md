@@ -30,7 +30,7 @@ Very simple answer for the first iteration, store the data in a `.js ` file and 
 
 ### Every question from the object should be displayed, with an adjacent chevron as in the mockup
 
-Because there are multiple questions, it would make sense to `Array.map()` across all the data items (questions) and ensure all of them are rendered on the page. The function to render might look like this:
+Because there are multiple questions, it would make sense to iterate with `Array.map()` across all the data items (questions) and ensure all of them are rendered on the page. The function to render might look like this:
 
 ```jsx
 // data: Array<Question>
@@ -40,7 +40,7 @@ Because there are multiple questions, it would make sense to `Array.map()` acros
 // }
 
 const renderQuestions = (data) => { 
-    return data.map((props) => <Question ...props />)
+    return data.map((props) => <Question {...props} />)
 }
 ```
 
@@ -55,12 +55,12 @@ const renderQuestions = (data) => {
 We can infer from these two related requirements that there will be a __closed__ and __open__ state `boolean` on the Question children which means we are no longer working with just static data and the Question children will need to be components with state. Later, state change will be triggered by the onClick event. Now `<Question /> ` will look roughly like so:
 
 ```jsx
-<Question ...props open={ bool } onClick={ handleClick } />
+<Question {...props} open={ bool } onClick={ handleClick } />
 ```
 
 ### The first answer should be revealed by default
 
-Thanks to the ```Array.map()``` callback, we can identify the index of our questions as we iterate through them all. Reading this out as an if statement, __"If the index of the question is 0, the question should be open"__. Though we know `<Question />` will have a closed/open, this requirement informs us where (on `<FAQ />`) to set the default state. So we can revise the `renderQuestions` function from earlier with our stateful `<Question />`.
+Thanks to the ```Array.map()``` callback, we can identify the index of our questions as we iterate through them all. Reading this out as an if statement, __"If the index of the question is 0, the question should be open"__. Though we know `<Question />` will have closed/open, this requirement informs us where (on `<FAQ />`) to set the default state. So we can revise the `renderQuestions` function from earlier with our stateful `<Question />`.
 
 [Read more about Array.map() here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 
@@ -68,7 +68,7 @@ Thanks to the ```Array.map()``` callback, we can identify the index of our quest
 const renderQuestions = (data) => { 
     return data.map(
         (props, i) =>  // i being the index
-        <Question ...props open={i === 0} />
+        <Question {...props} open={i === 0} />
     )
 }
 ```
@@ -89,8 +89,8 @@ Keeping all the requirements in mind, here is what our file structure and functi
 ```jsx
 const renderQuestions = (data) => { 
     return data.map(
-        (questionAndAnswer, i) =>  // i being the index
-        <Question ...questionAndAnswer open={i === 0} />
+        (props, i) =>  // i being the index
+        <Question ...props open={i === 0} />
     )
 }
 
@@ -101,7 +101,11 @@ const renderQuestions = (data) => {
 
 ### Question.js
 ```jsx
-<Question ...atrributes open={false} />
+const [isOpen, setOpen] = useState(open)
+
+const handleClick = (e) => setOpen(!isOpen) 
+
+<Question {...props} open={true || false} onClick={ handleClick } />
 ```
 
 # Testing Approach
