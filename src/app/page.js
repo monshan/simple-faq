@@ -4,7 +4,7 @@ import FAQ from "@/components/FAQ";
 
 export default function Home() {
   return (
-    <div className="min-w-screen min-h-screen bg-neutral-200 text-stone-800">
+    <div className="w-screen h-screen">
       <FAQ />
     </div>
   );
